@@ -14,8 +14,16 @@ const port = process.env.PORT || 3001
 const publicPath = path.join(__dirname, '../public')
 
 app.use(express.static(publicPath))
-io.on('connection', ()=>{
+let count = 0
+io.on('connection', (socket)=>{
     console.log('Here is io ')
+    socket.emit('sendCount', count)
+    socket.on('changeCount', ()=>{
+        count++
+        console.log(count)
+        socket.emit('countUpdated', count)
+    })
+
 })
 server.listen(port, ()=>{
     console.log('Server is up at port ', port)
