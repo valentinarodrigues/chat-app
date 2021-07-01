@@ -16,7 +16,7 @@ const publicPath = path.join(__dirname, '../public')
 app.use(express.static(publicPath))
 let count = 0
 io.on('connection', (socket)=>{
-    console.log('Here is io ')
+    console.log('Client is connected ')
     socket.emit('sendCount', count)
     socket.on('changeCount', ()=>{
         count++
