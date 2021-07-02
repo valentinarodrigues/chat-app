@@ -1,12 +1,15 @@
 const socket = io();
-document.querySelector('#increment').addEventListener('click', ()=>{
-    console.log('Clicked me')
-    socket.emit('changeCount')
-})
-socket.on('countUpdated', (count)=>{
-    console.log(count)
-})
-socket.on('sendCount', ()=>{
-    console.log('I am the client')
+socket.on('sendWelcome', (welcomeMessage)=>{
+    console.log(welcomeMessage)
 });
 
+document.querySelector('#dataEntered').addEventListener('submit', (e)=>{
+    e.preventDefault()
+
+    const message = e.target.elements.message // better way of writing
+    // const message = document.querySelector('input').value
+    socket.emit('sendData', message)
+})
+socket.on('sendAllClients', (messageData)=>{
+    console.log(messageData)
+})
