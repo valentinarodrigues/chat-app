@@ -18,4 +18,7 @@ Listen to the emitted events - socket.on('eventname', callback_function(data))
 
 Socket exist both client and server side
 
+BroadCast event
+- We send everyone else except themselves
+socket.broadcast.emit()
 
