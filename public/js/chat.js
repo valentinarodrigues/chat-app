@@ -10,6 +10,16 @@ document.querySelector('#dataEntered').addEventListener('submit', (e)=>{
     // const message = document.querySelector('input').value
     socket.emit('sendData', message)
 })
+
+document.querySelector('#send-location').addEventListener('click', (e)=>{
+    if(!navigator.geolocation){
+       return alert('Cannot get location')
+    }
+    navigation.geolocation.getCurrentPosition((position)=>{
+        console.log(position)
+    })
+})
+
 socket.on('sendAllClients', (messageData)=>{
     console.log(messageData)
 })
