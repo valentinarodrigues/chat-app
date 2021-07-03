@@ -16,10 +16,15 @@ const message = 'Welcome'
 io.on('connection', (socket) => {
     console.log('Client is connected ')
 
-    socket.emit('sendWelcome', message)
-
+    // socket.emit('sendWelcome', message) // emits to self as well
+    // broadcast to all except self
+    socket.broadcast.emit('sendWelcome', 'New member has joined')
     socket.on('sendData', (receivedData) => {
         io.emit('sendAllClients', receivedData)
+    })
+    // when a client gets disconnected we just need to write an event listener since the event disconnect is an inbuilt event in socket.io
+    socket.on('disconnect', ()=>{
+        io.emit('sendWelcome', 'User has left')
     })
 })
 
