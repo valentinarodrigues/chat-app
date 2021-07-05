@@ -20,15 +20,15 @@ io.on('connection', (socket) => {
     // socket.emit('sendWelcome', message) // emits to self as well
     // broadcast to all except self
     socket.broadcast.emit('sendWelcome', 'New member has joined')
-    socket.on('sendData', (receivedData) => {
+    socket.on('sendData', (receivedData, callback) => {
         io.emit('sendAllClients', receivedData)
+        callback('Received!')
     })
     socket.on('sendLocation', (data)=>{
         console.log(data)
-        data.latitude = 18
-        data.
-        socket.broadcast.emit('sendAllClients', `http://google.com/maps?q=${data.latitude},${data.longitude}`)
-
+        socket.emit('sendAllClients', `http://google.com/maps?q=${data.latitude},${data.longitude}`,()=>{
+            console.log('Message was delivered');
+        })
 
     })
     // when a client gets disconnected we just need to write an event listener since the event disconnect is an inbuilt event in socket.io

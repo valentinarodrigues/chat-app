@@ -8,7 +8,9 @@ document.querySelector('#dataEntered').addEventListener('submit', (e) => {
 
     const message = e.target.elements.message // better way of writing
     // const message = document.querySelector('input').value
-    socket.emit('sendData', message)
+    socket.emit('sendData', message, (msg)=>{
+        console.log('the message was delivered', msg);
+    })
 })
 
 document.querySelector('#send-location').addEventListener('click', (e) => {
@@ -17,8 +19,9 @@ document.querySelector('#send-location').addEventListener('click', (e) => {
     }
 
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
-        socket.emit('sendLocation', { latitude: position.coords.latitude, longitude: position.coords.longitude })
+        socket.emit('sendLocation', { latitude: position.coords.latitude, longitude: position.coords.longitude }, ()=>{
+            console.log('Message was delivered');
+        })
     })
 })
 
