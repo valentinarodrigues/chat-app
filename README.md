@@ -22,3 +22,5 @@ BroadCast event
 - We send everyone else except themselves
 socket.broadcast.emit()
 
+Callbacks are not supported when broadcasting
+
